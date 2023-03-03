@@ -35,15 +35,15 @@ footer {
   width:100vw;
   position:fixed;
   bottom:0px;
-  height: 200px;
+  height: 280px;
   
 }
 footer div {
   background-color:#4478e3;
-  margin: -5px 0px 0px 0px;
+  margin: -170px 0px 0px 20px;
   padding:0px;
   color: #fff;
-  text-align:center;
+  text-align:start;
 }
 svg {
   width:100%;
