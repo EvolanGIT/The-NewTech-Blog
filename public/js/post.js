@@ -4,7 +4,7 @@ const postFormHandler = async (event) => {
 
   console.log('this button works');
     const post_title = document.querySelector('#post-title').value.trim();
-    //placeholder for updated wt variable
+
     const post_text = document.querySelector('#post-text').value.trim();
 
     if (post_title && post_text) {
@@ -23,10 +23,6 @@ const postFormHandler = async (event) => {
       }
     }
   };
- //modal
-//  $('#myModal').on('shown.bs.modal', function () {
-//   $('#myInput').trigger('focus')
-// })
 
 
   document.querySelector("#postForm").addEventListener("submit", postFormHandler);
