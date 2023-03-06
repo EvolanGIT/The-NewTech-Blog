@@ -1,35 +1,87 @@
 const router = require("express").Router();
 const path = require("path");
-const fs = require("fs");
-// const uniqueID = require("uniqid");
+const { User, Posts, Comments, Like } = require("../../models"); // not sure if we are creating a model for likes??
+const withAuth = require('../../utils/auth');
+
+
+
 
 // route to post posts
 // 3001/api/posts
-router.post("/", (req, res) => {
-    let postID = uniqueID();
-    const postContent = JSON.parse(fs.readFileSync("./db/db_posts.json"));
-    res.json(postContent)
-    console.log(postID);
+// get all posts for dashboard
 
-    const newPost = {
-        title: req.body.title,
-        text: req.body.text, 
-        id: postID,
-    };
-    postContent.push(newPost);
-    fs.writeFileSync("./db/db_posts.json", JSON.stringify(postContent));
+router.get('/', withAuth, (req, res) => {
+  try{  
+  const postData = Posts.findAll({
+      attributes: [
+        'id',
+        'post_title',
+        'post',
+        'user_name'
+      ],
+      include: [
+        {
+          model: Comment,
+          attributes: ['id', 'comment_text', 'post_id', 'user_id'],
+          include: {
+            model: User,
+            attributes: ['user_name']
+          }
+        },
+        {
+          model: User,
+          attributes: ['user_name']
+        },
+      ],
+    });
+        const posts = postData.map(post => post.get({ plain: true }));
+        res.render('posts', {
+          posts,
+          loggedIn: req.session.loggedIn
+        });
+    } catch(err) {
+        console.log(err);
+        res.status(500).json(err);
+      }
+  });
 
-});
 
-//route to delete posts
-router.delete('/:id', (req, res) => {
-    let savedPosts = JSON.parse(fs.readFileSync("./db/db_posts.json", "utf8"));
-    let postID= savedPosts.filter(x=>x.id!=req.params.id) 
-fs.writeFileSync("./db/db_posts.json", JSON.stringify(postID), (err) => {
-    if (err) throw err;
-});
-return res.json(savedPosts);
-});
+  // post create
+  router.post('/', withAuth, async (req, res) => {
+    try {
+      const newPost = await Posts.create({
+        ...req.body,
+        user_id: req.session.user_id,
+      });
+  
+      res.status(200).json(newPost);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  });
+
+  //for deleting post
+  router.delete('/:id', withAuth, (req, res) => {
+    // console.log('id', req.params.id);
+    Posts.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+      .then(dbPostData => {
+        if (!dbPostData) {
+          res.status(404).json({ message: 'No post found with this id' });
+          return;
+        }
+        res.json(dbPostData);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  });
+
+  
 
 
 module.exports = router;

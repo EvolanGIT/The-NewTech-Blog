@@ -1,25 +1,29 @@
 [
     {
-    "first_name": "Team",
-    "last_name": "Test",
+    "first_name": "Yon",
+    "last_name": "Snow",
+    "user_name": "Team Test",
     "email": "test@email.com",
     "password": "12345"
     },
     {
-    "first_name": "Sal",
-    "last_name": "Monella",
+    "first_name": "Tim",
+    "last_name": "Tom",
+    "user_name": "Sal Monella",
     "email": "salmonella@email.com",
     "password": "password12345"
     },
     {
-    "first_name": "Joe",
-    "last_name": "Mammah",
+    "first_name": "Holla",
+    "last_name": "Palooza",
+    "user_name": "Joe Mammah",
     "email": "joemammah@email.com",
     "password": "password12345"
     },
     {
-    "first_name": "Tri",
-    "last_name": "Pin",
+    "first_name": "Me",
+    "last_name": "Maw",
+    "user_name": "Tri Pin",
     "email": "utrippin@email.com",
     "password": "password12345"
     }

@@ -11,14 +11,10 @@ Comments.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    post_id: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    likes: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+    // likes: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: true,
+    // },
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
