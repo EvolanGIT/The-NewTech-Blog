@@ -1,0 +1,26 @@
+[
+    {
+    "first_name": "Team",
+    "last_name": "Test",
+    "email": "test@email.com",
+    "password": "12345"
+    },
+    {
+    "first_name": "Sal",
+    "last_name": "Monella",
+    "email": "salmonella@email.com",
+    "password": "password12345"
+    },
+    {
+    "first_name": "Joe",
+    "last_name": "Mammah",
+    "email": "joemammah@email.com",
+    "password": "password12345"
+    },
+    {
+    "first_name": "Tri",
+    "last_name": "Pin",
+    "email": "utrippin@email.com",
+    "password": "password12345"
+    }
+]
