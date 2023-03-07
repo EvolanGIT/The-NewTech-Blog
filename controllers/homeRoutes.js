@@ -3,7 +3,7 @@ const { User, Posts } = require('../models');
 const withAuth = require('../utils/auth');
 
 
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
     const postData = await Posts.findAll({
       include: {
@@ -43,14 +43,14 @@ router.get('/signup', (req, res) => {
 });
 
 
-router.get('/dashboard', async (req, res) => {
+router.get('/dashboard', withAuth,  async (req, res) => {
 const postData= await Posts.findAll();
 const allPosts= postData.map(post=> post.get({plain: true}))
 res.render('dashboard', {allPosts});
 });
 
 
-router.get("/newPost", async(req,res) => {
+router.get("/newPost", withAuth, async(req,res) => {
   res.render('post');
 });
 

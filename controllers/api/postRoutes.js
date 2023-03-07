@@ -47,7 +47,7 @@ router.get('/', withAuth, (req, res) => {
 
 
   // post create
-  router.post('/', withAuth, async (req, res) => {
+  router.post('/', withAuth,  async (req, res) => {
     try {
       const newPost = await Posts.create({
         ...req.body,
