@@ -1,12 +1,26 @@
-$(document).ready(function(){
-  $(".modal").addClass("is-active");
+const commentFormHandler = async (event) => {
+  
+  event.preventDefault();
 
-  $("#closeBtn").click(function() {
-  $(".modal").removeClass("is-active");
-});
+    const comment = document.querySelector('#commentInput').value.trim();
 
-  $("#modalBtn").click(function() {
-  $(".modal").addClass("is-active");
-});
-});
 
+    if (comment) {
+      const response = await fetch("/api/comment", {
+        method: "POST",
+        body: JSON.stringify({comment}),
+        headers: { "Content-Type": "application/json" },
+      })
+      
+
+      if (response.ok) {
+        console.log("comment successful")
+        document.location.replace("/");
+      } else {
+        alert("failed to post message");
+      }
+    }
+  };
+
+
+  document.querySelector("#comment-form").addEventListener("submit", commentFormHandler);

@@ -1,31 +1,55 @@
 const router = require("express").Router();
 const path = require("path");
-const fs = require("fs");
-const uniqueID = require("uniqid");
+const { User, Posts, Comments } = require("../../models"); 
+const withAuth = require('../../utils/auth');
 
-// route to post comment
-router.post("/comment", (req, res) => {
-    let commentID = uniqueID();
-    const Content = JSON.parse(fs.readFileSync("./db/db_comments.json"));
-    res.json(commentContent)
-    console.log(commentID);
+  // Comment create
+  router.post('/', withAuth,  async (req, res) => {
+    try {
+      const newPost = await Comments.create({
+        ...req.body,
+        user_id: req.session.user_id,
+      });
+  
+      res.status(200).json(newPost);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  });
 
-    const newComment = {
-        title: req.body.title,
-        text: req.body.text, 
-        id: commentID,
-    };
-    postContent.push(newComment);
-    fs.writeFileSync("./db/db_comment.json", JSON.stringify(commentContent));
-
-});
-
-//route to delete comment
-router.delete('/comment/:id', (req, res) => {
-    let savedComment = JSON.parse(fs.readFileSync("./db/db_comment.json", "utf8"));
-    let commentID= savedComment.filter(x=>x.id!=req.params.id) 
-fs.writeFileSync("./db/db_comment.json", JSON.stringify(commentID), (err) => {
-    if (err) throw err;
-});
-return res.json(savedComment);
-});
+// all comments
+  router.get('/', withAuth, (req, res) => {
+    try{  
+    const postData = Comment.findAll({
+        attributes: [
+          'id',
+          'post_id',
+          'comment',
+          'user_name'
+        ],
+        include: [
+          {
+            model: Posts,
+            attributes: ['id', 'post', 'post_id', 'user_id'],
+            include: {
+              model: User,
+              attributes: ['user_name']
+            }
+          },
+          {
+            model: User,
+            attributes: ['user_name']
+          },
+        ],
+      });
+          const posts = postData.map(post => post.get({ plain: true }));
+          res.render('posts', {
+            posts,
+            loggedIn: req.session.loggedIn
+          });
+      } catch(err) {
+          console.log(err);
+          res.status(500).json(err);
+        }
+    });
+  

@@ -1,12 +1,12 @@
 {{#each posts as |post| }}
-<section class="container mt-5 d-flex justify-content-center" >
+<section class="container mt-5 d-flex flex-wrap justify-content-center" >
         <div class="card w-50 mb-3" >
-                    <h1 class="card-header align-items-center d-flex justify-content-between">
+                    <h4 class="card-header align-items-center d-flex justify-content-between">
                     {{post.user.user_name}} posted:
                     <div>
-                        <img src="/assets/images/Beep-Post.jpg" width="100px">
+                        <img src="/assets/images/Beep-Post.jpg" width="75px">
                     </div>
-                    </h1>
+                    </h4>
             <div class="card-body">
                     <h5 class="card-title">{{post_title}}</h5>
                     <h6 class="card-text mt-3">{{post.post}}</h6>
@@ -23,6 +23,11 @@
                     <button type="button" id="deletebutton" value="{{this.id}}" class="btn btn-primary">Delete</button>
                 </div>
             </div>
+            <h4 class="card-header align-items-center d-flex justify-content-between">
+                    {{post.comment.comment}}
+                    <div>
+                    </div>
+                    </h4>
         </div>
 
     <!-- Modal -->
@@ -36,16 +41,18 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Let <strong>{{post.user.user_name}}</strong> know what you think of: <strong>{{post_title}}</strong></h5>
             <img id="logo" src="/assets/images/Beep-Post.jpg">
-            <h5 class="modal-title" id="exampleModalLongTitle"></h5>
           </div>
           <div class="modal-body">
-            <form>
+<form>
   <div class="form-group">
-    <label for="commentInstruction">Write your comment here:</label>
-    <input type="string" class="form-control" id="commentInput" aria-describedby="comment" placeholder="Make someone's day!">
+    <label for="commentInstruction"></label>
+    <input type="string" class="form-control" id="commentInput" aria-describedby="comment" placeholder="Comment Here">
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <div class="d-flex justify-content-end">
+  <button type="submit" id="comment-form" class="btn btn-primary mt-3 pull-right">Submit</button>
+  </div>
 </form>
           </div>
           <div class="modal-footer">

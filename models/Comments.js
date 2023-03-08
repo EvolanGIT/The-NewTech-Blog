@@ -20,9 +20,27 @@ Comments.init(
       allowNull: false,
       foreignKey: true,
     },
+    comment: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     post_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      foreignKey: true,
+      references: {
+        model: "post",
+        key: "id"
+      }
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true,
+      references: {
+      model: "user",
+      key: "id"
+    }
   },
 },
   {
