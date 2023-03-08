@@ -1,6 +1,6 @@
 {{#each posts as |post| }}
-<section class="container mt-5">
-        <div class="card mb-3">
+<section class="container mt-5 d-flex justify-content-center" >
+        <div class="card w-50 mb-3" >
                     <h1 class="card-header align-items-center d-flex justify-content-between">
                     {{post.user.user_name}} posted:
                     <div>
@@ -9,12 +9,50 @@
                     </h1>
             <div class="card-body">
                     <h5 class="card-title">{{post_title}}</h5>
-                    <h6 class="card-text mt-3">{{post}}</h6>
+                    <h6 class="card-text mt-3">{{post.post}}</h6>
                 <div class="d-flex justify-content-end">
-                    <a href="#" class="btn mx-1 btn-primary">Like</a>
-                    <a href="#" class="btn mx-1 btn-primary">Comment</a>
+                    <button href="#" class="btn mx-1 btn-primary">Like</button>
+                    {{!-- modal trigger for comments --}}
+                    <button 
+                        href="#" 
+                        class="btn mx-1 btn-primary" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#exampleModalCenter">
+                        Comment
+                    </button>
+                    <button type="button" id="deletebutton" value="{{this.id}}" class="btn btn-primary">Delete</button>
                 </div>
             </div>
         </div>
-    </section>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModalCenter"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <img id="logo" src="/assets/images/Beep-Post.jpg">
+            <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+          </div>
+          <div class="modal-body">
+            <form>
+  <div class="form-group">
+    <label for="commentInstruction">Write your comment here:</label>
+    <input type="string" class="form-control" id="commentInput" aria-describedby="comment" placeholder="Make someone's day!">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+          </div>
+          <div class="modal-footer">
+            <p class="escape fs-10">Click outside the window to cancel</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
 {{/each}}
