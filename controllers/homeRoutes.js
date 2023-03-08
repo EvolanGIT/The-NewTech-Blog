@@ -44,9 +44,24 @@ router.get('/signup', (req, res) => {
 
 
 router.get('/dashboard', withAuth,  async (req, res) => {
-const postData= await Posts.findAll();
-const allPosts= postData.map(post=> post.get({plain: true}))
-res.render('dashboard', {allPosts});
+  try {
+    const postData = await Posts.findAll({
+      include: {
+        model: User,
+        attributes: ['user_name'],
+      }
+    });
+
+    const posts = postData.map((post) => post.get({ plain: true }));
+    console.log(posts);
+    res.render('dashboard', 
+    {posts,
+      // Pass the logged in flag to the template
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 
