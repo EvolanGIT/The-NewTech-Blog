@@ -20,7 +20,7 @@ const withAuth = require('../../utils/auth');
 // all comments
   router.get('/', withAuth, (req, res) => {
     try{  
-    const postData = Comment.findAll({
+    const postData = Comments.findAll({
         attributes: [
           'id',
           'post_id',
