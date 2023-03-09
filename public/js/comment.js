@@ -2,21 +2,23 @@ const commentFormHandler = async (event) => {
   
   event.preventDefault();
   
-  const comment_data = document.querySelector('#commentInput').value.trim();
+
+  const post_id = document.querySelector('input[name="post-id"]').value;
+  const comment_text = document.querySelector('#commentInput').value.trim();
   
   
-  if (comment_data) {
-      console.log(comment_data)
+  if (comment_text) {
+      console.log('this is passing the data')
       const response = await fetch("/api/comments", {
         method: "POST",
-        body: JSON.stringify({comment_text}),
+        body: JSON.stringify({comment_text, post_id}),
         headers: { "Content-Type": "application/json" },
       })
       
 
       if (response.ok) {
         console.log("comment successful")
-        document.location.replace("/dashboard");
+        document.location.reload();
       } else {
         alert("failed to post message");
       }
