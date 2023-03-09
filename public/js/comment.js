@@ -1,12 +1,13 @@
 const commentFormHandler = async (event) => {
   
   event.preventDefault();
-
-    const comment = document.querySelector('#commentInput').value.trim();
-
-
-    if (comment) {
-      const response = await fetch("/api/comment", {
+  
+  const comment_data = document.querySelector('#commentInput').value.trim();
+  
+  
+  if (comment_data) {
+      console.log(comment_data)
+      const response = await fetch("/api/comments", {
         method: "POST",
         body: JSON.stringify({comment_text}),
         headers: { "Content-Type": "application/json" },
@@ -15,7 +16,7 @@ const commentFormHandler = async (event) => {
 
       if (response.ok) {
         console.log("comment successful")
-        document.location.replace("/");
+        document.location.replace("/dashboard");
       } else {
         alert("failed to post message");
       }

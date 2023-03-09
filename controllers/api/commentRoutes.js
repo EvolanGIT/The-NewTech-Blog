@@ -6,12 +6,12 @@ const withAuth = require('../../utils/auth');
   // Comment create
   router.post('/', withAuth,  async (req, res) => {
     try {
-      const newPost = await Comments.create({
+      const newComment = await Comments.create({
         ...req.body,
         user_id: req.session.user_id,
       });
   
-      res.status(200).json(newPost);
+      res.status(200).json(newComment);
     } catch (err) {
       res.status(400).json(err);
     }
@@ -20,7 +20,7 @@ const withAuth = require('../../utils/auth');
 // all comments
   router.get('/', withAuth, (req, res) => {
     try{  
-    const postData = Comments.findAll({
+    const commentData = Comments.findAll({
         attributes: [
           'id',
           'post_id',
@@ -32,8 +32,8 @@ const withAuth = require('../../utils/auth');
             model: Posts,
             attributes: ['id', 'post', 'post_id', 'user_id'],
             include: {
-              model: User,
-              attributes: ['user_name']
+            model: User,
+            attributes: ['user_name']
             }
           },
           {
@@ -42,7 +42,7 @@ const withAuth = require('../../utils/auth');
           },
         ],
       });
-          const posts = postData.map(post => post.get({ plain: true }));
+          const posts = commentData.map(post => post.get({ plain: true }));
           res.render('posts', {
             posts,
             loggedIn: req.session.loggedIn
@@ -52,4 +52,5 @@ const withAuth = require('../../utils/auth');
           res.status(500).json(err);
         }
     });
-  
+
+module.exports = router;

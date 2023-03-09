@@ -11,27 +11,19 @@ Comments.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    // likes: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: true,
-    // },
     comment_text: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     post_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      foreignKey: true,
       references: {
-        model: "post",
+        model: "posts",
         key: "id"
       }
     },
     user_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      foreignKey: true,
       references: {
       model: "user",
       key: "id"
