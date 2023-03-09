@@ -42,9 +42,9 @@ const withAuth = require('../../utils/auth');
           },
         ],
       });
-          const posts = commentData.map(post => post.get({ plain: true }));
-          res.render('posts', {
-            posts,
+          const comment_text = commentData.map(comment_text => comment_text.get({ plain: true }));
+          res.render('dashboard', {
+            comment_text,
             loggedIn: req.session.loggedIn
           });
       } catch(err) {
