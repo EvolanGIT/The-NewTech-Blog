@@ -3,9 +3,9 @@ const commentFormHandler = async (event) => {
   event.preventDefault();
   
 
-  const post_id = document.querySelector('input[name="post-id"]').value;
+  const post_id = document.querySelector('#post_id').value;
   const comment_text = document.querySelector('#commentInput').value.trim();
-  
+  console.log(post_id);
   
   if (comment_text) {
       console.log('this is passing the data')
@@ -18,7 +18,7 @@ const commentFormHandler = async (event) => {
 
       if (response.ok) {
         console.log("comment successful")
-        document.location.reload();
+        // document.location.reload();
       } else {
         alert("failed to post message");
       }

@@ -1,15 +1,15 @@
 {{#each posts as |post| }}
-<section class="container mt-5 d-flex flex-wrap justify-content-center" >
-        <div class="card w-50 mb-3" >
+<section class="container mt-2 d-flex flex-wrap justify-content-center" >
+        <div class="card w-50 mb-1" >
                     <h4 class="card-header align-items-center d-flex justify-content-between">
                     {{post.user.user_name}} posted:
                     <div>
-                        <img src="/assets/images/Beep-Post.jpg" width="75px">
+                        <img src="/assets/images/Beep-Post.jpg" width="55px">
                     </div>
                     </h4>
             <div class="card-body">
                     <h5 class="card-title">{{post_title}}</h5>
-                    <h6 class="card-text mt-3">{{post.post}}</h6>
+                    <h6 class="card-text mt-1">{{post.post}}</h6>
                 <div class="d-flex justify-content-end">
                     <button href="#" class="btn mx-1 btn-primary">Like</button>
                     {{!-- modal trigger for comments --}}
@@ -24,11 +24,13 @@
                 </div>
             </div>
             <h4 class="card-header align-items-center d-flex justify-content-between">
-                    {{post.comment.comment}}
                     <div>
+                    {{post.user.comment_text}}
                     </div>
                     </h4>
         </div>
+
+
 
     <!-- Modal -->
     <div
@@ -45,14 +47,14 @@
             <img id="logo" src="/assets/images/Beep-Post.jpg">
           </div>
           <div class="modal-body">
-<form>
+<form id="comment-form">
   <div class="form-group">
-    <input type="hidden" name="post-id" value="{{this.id}}" />
+    <input type="hidden" name="post-id" id="post_id" value="{{post.id}}"/>
     <label for="commentInstruction"></label>
     <input type="string" class="form-control" id="commentInput" aria-describedby="comment" placeholder="Comment Here">
   </div>
   <div class="d-flex justify-content-end">
-  <button type="submit" id="comment-form" class="btn btn-primary mt-3 pull-right">Submit</button>
+  <button type="submit" class="btn btn-primary mt-3 pull-right">Submit</button>
   </div>
 </form>
           </div>
@@ -63,4 +65,4 @@
       </div>
     </div>
 
-{{/each}}
+    {{/each}}

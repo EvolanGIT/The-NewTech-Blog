@@ -4,17 +4,17 @@ const { User, Posts, Comments } = require("../../models");
 const withAuth = require('../../utils/auth');
 
   // Comment create
-  router.post('/', withAuth,  async (req, res) => {
-    try {
-      const newComment = await Comments.create({
-        ...req.body,
-        user_id: req.session.user_id,
+  router.post("/", withAuth, (req, res) => {
+    Comments.create({
+      comment_text: req.body.comment_text,
+      user_id: req.session.user_id,
+      post_id: req.body.post_id,
+    })
+      .then((commentData) => res.json(commentData))
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
       });
-  
-      res.status(200).json(newComment);
-    } catch (err) {
-      res.status(400).json(err);
-    }
   });
 
 // all comments
@@ -42,11 +42,8 @@ const withAuth = require('../../utils/auth');
           },
         ],
       });
-          const comment_text = commentData.map(comment_text => comment_text.get({ plain: true }));
-          res.render('dashboard', {
-            comment_text,
-            loggedIn: req.session.loggedIn
-          });
+
+          res.json(commentData)
       } catch(err) {
           console.log(err);
           res.status(500).json(err);
